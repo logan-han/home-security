@@ -1,0 +1,18 @@
+{
+  "name": "home-security-frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.288.0",
+    "aws-serverless-express": "^3.2.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3"
+  }
+}

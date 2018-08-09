@@ -1,0 +1,7 @@
+{
+  "lambda": {
+    "role": "ses-mail-parser-executor",
+    "name": "ses-mail-parser",
+    "region": "us-west-2"
+  }
+}

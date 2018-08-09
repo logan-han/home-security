@@ -1,0 +1,10 @@
+{
+  "lambda": {
+    "role": "home-security-frontend-executor",
+    "name": "home-security-frontend",
+    "region": "ap-southeast-2"
+  },
+  "api": {
+    "id": "tf34o1aawe"
+  }
+}

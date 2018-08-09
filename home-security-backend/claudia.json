@@ -1,0 +1,7 @@
+{
+  "lambda": {
+    "role": "home-security-backend-executor",
+    "name": "home-security-backend",
+    "region": "ap-southeast-2"
+  }
+}

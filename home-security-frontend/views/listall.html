@@ -1,0 +1,32 @@
+<table>
+    <thead>
+        <th>filename</th>
+        <th>faceId</th>
+        <th>timestamp</th>
+        <th>emotionType1</th>
+        <th>emotionConf1</th>
+        <th>emotionType2</th>
+        <th>emotionConf2</th>
+        <th>ageLow</th>
+        <th>ageHigh</th>
+        <th>genderValue</th>
+        <th>genderConf</th>
+    </thead>
+  <tbody>
+    <% for(var i = 0; i < items.length; i++) { %>
+  <tr>
+            <td><img src=<%= config.imagehost+items[i].filename %>></td>
+            <td><%= items[i].faceId %></td>
+            <td><%= items[i].timestamp %></td>
+            <td><%= items[i].emotionType1 %></td>
+            <td><%= items[i].emotionConf1 %></td>
+            <td><%= items[i].emotionType2 %></td>
+            <td><%= items[i].emotionConf2 %></td>
+            <td><%= items[i].ageLow %></td>
+            <td><%= items[i].ageHigh %></td>
+            <td><%= items[i].genderValue %></td>
+            <td><%= items[i].genderConf %></td>
+  </tr>
+         <% } %>
+      </tbody>
+</table>

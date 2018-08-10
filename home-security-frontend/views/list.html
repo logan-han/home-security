@@ -1,0 +1,22 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+</head>
+<table class="pure-table pure-table-bordered">
+    <thead>
+        <th>Thumbnail</th>
+        <th>Date</th>
+        <th>Face ID</th>
+
+    </thead>
+  <tbody>
+    <% for(var i = 0; i < items.length; i++) { %>
+  <tr>
+            <td><a class="pure-button" href=latest/by-filename/<%= items[i].filename %>><img src=<%= config.imagehost+items[i].filename %> width=100 height=100></a></td>
+            <td><%= items[i].date %></td>
+            <td><% if(items[i].faceId) { %> <a class="pure-button" href=latest/by-faceId/<%= items[i].faceId %>><%= items[i].faceId %></a> <% } %></td>
+  </tr>
+         <% } %>
+      </tbody>
+</table>
+</html>

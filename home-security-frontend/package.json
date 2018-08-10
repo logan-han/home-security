@@ -10,8 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "array-sort": "^1.0.0",
     "aws-sdk": "^2.288.0",
     "aws-serverless-express": "^3.2.0",
+    "date-time": "^2.1.0",
     "ejs": "^2.6.1",
     "express": "^4.16.3"
   }

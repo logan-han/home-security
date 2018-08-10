@@ -1,16 +1,17 @@
 # Deployment HOWTO
 
 ## backend
-claudia create --region ap-southeast-2 --handler index.handler --policies policy
+`claudia create --region ap-southeast-2 --handler index.handler --policies policy`
+Need S3 PUT action trigger as well
 ## ses-mail-parser
-claudia create --region us-west-2 --handler index.handler --policies policy
+`claudia create --region us-west-2 --handler index.handler --policies policy`
 ## frontend
-claudia create --region ap-southeast-2 --handler lambda.handler --deploy-proxy-api --policies policy
+`claudia create --region ap-southeast-2 --handler lambda.handler --deploy-proxy-api --policies policy`
 
 ## Create default collection
 `aws rekognition create-collection --collection-id "<collection ID>"`
 
-### Add SES Ruleset with two actions:
+### Add SES Ruleset with two actions
 ```
 Recipients
 Your email address
@@ -21,7 +22,7 @@ Write to S3 bucket <your bucket> under the prefix <prefix>/
 Invoke Lambda function <ses-mail-parser> as Event
 ```
 
-### email bucket should have bucket policy enabling SES write:
+### email bucket should have bucket policy enabling SES write
 ```
 {
    "Version": "2012-10-17",

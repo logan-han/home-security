@@ -13,18 +13,21 @@ exports.handler = function(event, context, callback) {
   var promise = rekognizeLabels(bucket, key).then(isHuman);
 
   function isHuman(data) {
-      labelData = data["Labels"];
-      if (config.debug) console.log(key + " = " + labelData[0]["Name"]);
-      if(labelData[0]["Name"]=="Human") return rekognizeFace(bucket, key).then(function(faceData) {
-      if(faceData["FaceRecords"][0])
+      if(data["Labels"][0])
       {
-        face = faceData["FaceRecords"][0]["Face"];
-        faceDetail = faceData["FaceRecords"][0]["FaceDetail"];
+        labelData = data["Labels"];
+        if (config.debug) console.log(key + " = " + labelData[0]["Name"]);
+        if(labelData[0]["Name"]=="Human") return rekognizeFace(bucket, key).then(function(faceData) {
+          if(faceData["FaceRecords"][0])
+          {
+            face = faceData["FaceRecords"][0]["Face"];
+            faceDetail = faceData["FaceRecords"][0]["FaceDetail"];
+          }
+          return addToFacesTable()
+        })
+        else console.log("Not Human");
       }
-
-      return addToFacesTable()
-      })
-      else console.log("Not Human");
+      else console.log("Can't rekognize");
   }
 
       promise.then(function(data) {
@@ -82,7 +85,7 @@ function rekognizeLabels(bucket, key) {
       }
     },
     MaxLabels: 1,
-    MinConfidence: 80
+    MinConfidence: 70
   };
 
   return rekognition.detectLabels(params).promise()

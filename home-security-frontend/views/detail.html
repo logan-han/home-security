@@ -3,10 +3,10 @@
 <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
 </head>
 <% for(var i = 0; i < items.length; i++) { %>
-<img src=<%= config.imagehost+items[0].filename %>>
+<img class="pure-img" src=<%= config.imagehost+items[i].filename %> width="800" height="600">
 <table class="pure-table pure-table-bordered">
     <tbody>
-      <tr><td>Time</td><td><%= date %></td>
+      <tr><td>Time</td><td><%= dateTime(items[i].timestamp) %></td>
       <% if(items[i].faceId) { %><tr><td>faceId</td><td><%= items[i].faceId %></td> <% } %>
       <% if(items[i].emotionType1) { %><tr><td>Emotion1</td><td><%= items[i].emotionType1 %> <%= Math.round(items[i].emotionConf1) %>%</td> <% } %>
       <% if(items[i].emotionType2) { %><tr><td>Emotion2</td><td><%= items[i].emotionType2 %> <%= Math.round(items[i].emotionConf2) %>%</td> <% } %>

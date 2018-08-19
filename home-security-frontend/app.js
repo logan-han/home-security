@@ -33,7 +33,7 @@ app.get('/by-filename/:filename', (req, res) => {
     dynamodb.scan(params, function(err, data) {
       if (err) console.log(err);
       else {
-        res.render('detail',{items : data.Items, date : dateTime({date: new Date(data.Items[0].timestamp)}), config : config});
+        res.render('detail',{items : data.Items, dateTime : dateTime, config : config});
       }
     });
 });
@@ -49,7 +49,7 @@ app.get('/by-filename/:filename', (req, res) => {
       dynamodb.scan(params, function(err, data) {
         if (err) console.log(err);
         else {
-          res.render('detail',{items : arraySort(data.Items, 'timestamp', {reverse: true}), date : dateTime({date: new Date(data.Items[0].timestamp)}), config : config});
+          res.render('detail',{items : arraySort(data.Items, 'timestamp', {reverse: true}), dateTime : dateTime, config : config});
         }
     });
 });

@@ -42,7 +42,8 @@ exports.handler = function(event, context) {
             s3.putObject({
                 Bucket: config.toBucket,
                 Key: config.toPath + message.mail.messageId + ".jpg",
-                Body: mail.attachments[0].content
+                Body: mail.attachments[0].content,
+                ContentType: "image/jpg"
             }, function(err, data) {
                   if (err) {
                       console.log(err);

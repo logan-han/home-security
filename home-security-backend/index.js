@@ -1,8 +1,9 @@
-var AWS = require("aws-sdk");
-var s3 = new AWS.S3();
-var rekognition = new AWS.Rekognition();
-var docClient = new AWS.DynamoDB.DocumentClient();
-var config = require("./config.js");
+const AWS = require("aws-sdk");
+const s3 = new AWS.S3();
+const rekognition = new AWS.Rekognition();
+const docClient = new AWS.DynamoDB.DocumentClient();
+const config = require("./config.js");
+const TelstraMessaging = require('Telstra_Messaging');
 
 var lambdaCallback, bucket, key;
 
@@ -11,7 +12,6 @@ exports.handler = function(event, context, callback) {
   bucket = event.Records[0].s3.bucket.name;
   key = event.Records[0].s3.object.key;
   var promise = rekognizeLabels(bucket, key).then(isHuman);
-
   function isHuman(data) {
       if(data["Labels"][0])
       {
@@ -23,15 +23,15 @@ exports.handler = function(event, context, callback) {
             face = faceData["FaceRecords"][0]["Face"];
             faceDetail = faceData["FaceRecords"][0]["FaceDetail"];
           }
+          if (config.send_sms) send_sms(key);
           return addToFacesTable()
         })
         else console.log("Not Human");
       }
       else console.log("Can't rekognize");
   }
-
       promise.then(function(data) {
-      lambdaCallback(null, data)
+      lambdaCallback(null, data);
     }).catch(function(err) {
       lambdaCallback(err, null);
     });
@@ -89,4 +89,30 @@ function rekognizeLabels(bucket, key) {
   };
 
   return rekognition.detectLabels(params).promise()
+};
+
+function send_sms(key)
+{
+  var AuthAPI = new TelstraMessaging.AuthenticationApi();
+  var defaultClient = TelstraMessaging.ApiClient.instance;
+  var auth = defaultClient.authentications['auth'];
+  var SMSAPI = new TelstraMessaging.MessagingApi();
+  var sendSMSrequest = new TelstraMessaging.SendSMSRequest();
+  sendSMSrequest.to = config.sms_to_phone;
+  sendSMSrequest.body = "Human movement detected, see: " + config.image_prefix + key;
+  AuthAPI.authToken(config.telstra_clientId, config.telstra_Secret, "client_credentials",
+  function(error, data, response) {
+    if (error) console.error(error);
+    else {
+          auth.accessToken = data['access_token'];
+          if (config.debug) console.log("AccessToken: " + data['access_token']);
+          return SMSAPI.sendSMS(sendSMSrequest,
+          function(error, data, respones) {
+            if (error) console.error(error);
+            else {
+              if (config.debug) console.log("SMS return:" + JSON.stringify(data));
+            }
+          });
+        }
+  });
 };

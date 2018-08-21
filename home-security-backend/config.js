@@ -4,6 +4,7 @@ var config = {
   telstra_clientId: "meow",
   telstra_Secret: "meow",
   sms_to_phone: "+61meow",
+  sms_prefix: "Human movement detected, see: ",
   image_prefix: "https://s3-ap-southeast-2.amazonaws.com/meow/",
   send_sms: "true",
   debug: "true"

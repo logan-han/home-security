@@ -99,7 +99,7 @@ function send_sms(key)
   var SMSAPI = new TelstraMessaging.MessagingApi();
   var sendSMSrequest = new TelstraMessaging.SendSMSRequest();
   sendSMSrequest.to = config.sms_to_phone;
-  sendSMSrequest.body = "Human movement detected, see: " + config.image_prefix + key;
+  sendSMSrequest.body = config.sms_prefix + config.image_prefix + key;
   AuthAPI.authToken(config.telstra_clientId, config.telstra_Secret, "client_credentials",
   function(error, data, response) {
     if (error) console.error(error);

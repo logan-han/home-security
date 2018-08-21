@@ -1,3 +1,12 @@
+# Machine Learning Home Security
+It's a small project runs surveillance camera image analysis using AWS Rekognition that I wrote for company preso.
+
+Designed to capture email notification from Synology surveillance station and send SMS notification when human movement detected.
+
+It also has MVP frontend web interface to display historic record.
+
+Not quite in distributable status btw.
+
 # Deployment HOWTO
 
 ## backend

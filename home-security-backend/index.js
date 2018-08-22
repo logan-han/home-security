@@ -1,8 +1,9 @@
+const config = require("./config.js");
 const AWS = require("aws-sdk");
 const s3 = new AWS.S3();
 const rekognition = new AWS.Rekognition();
+const SES = new AWS.SES({region: config.sesRegion, endpoint: config.sesEndpoint});
 const docClient = new AWS.DynamoDB.DocumentClient();
-const config = require("./config.js");
 const TelstraMessaging = require('Telstra_Messaging');
 
 var lambdaCallback, bucket, key;
@@ -23,6 +24,7 @@ exports.handler = function(event, context, callback) {
             face = faceData["FaceRecords"][0]["Face"];
             faceDetail = faceData["FaceRecords"][0]["FaceDetail"];
           }
+          if (config.send_email) send_email(key);
           if (config.send_sms) send_sms(key);
           return addToFacesTable()
         })
@@ -99,7 +101,7 @@ function send_sms(key)
   var SMSAPI = new TelstraMessaging.MessagingApi();
   var sendSMSrequest = new TelstraMessaging.SendSMSRequest();
   sendSMSrequest.to = config.sms_to_phone;
-  sendSMSrequest.body = config.sms_prefix + config.image_prefix + key;
+  sendSMSrequest.body = config.notification_prefix + config.image_prefix + key;
   AuthAPI.authToken(config.telstra_clientId, config.telstra_Secret, "client_credentials",
   function(error, data, response) {
     if (error) console.error(error);
@@ -109,10 +111,38 @@ function send_sms(key)
           return SMSAPI.sendSMS(sendSMSrequest,
           function(error, data, respones) {
             if (error) console.error(error);
-            else {
-              if (config.debug) console.log("SMS return:" + JSON.stringify(data));
-            }
+            else if (config.debug) console.log("SMS: " + JSON.stringify(data));
           });
         }
+  });
+};
+
+function send_email(key)
+{
+  AWS.config.update({region: 'us-west-2'});
+  let params = {
+    Destination: {
+      ToAddresses: [
+        config.email_to_address,
+      ]
+    },
+    Message: {
+      Body: {
+        Text: {
+          Charset: "UTF-8",
+          Data: config.notification_prefix + config.image_prefix + key
+        }
+      },
+      Subject: {
+        Charset: "UTF-8",
+        Data: config.notification_prefix
+      }
+    },
+    Source: config.email_from_address
+  };
+  return SES.sendEmail(params,
+  function(error, data, response) {
+    if (error) console.error(error);
+    else if (config.debug) console.log("EMAIL: " + JSON.stringify(data));
   });
 };

@@ -3,7 +3,7 @@ var config = {
   toBucket: "images.han.life",
   fromPath: "email/",
   toPath: "image/",
-//  debug: "true"
+  debug: true
 };
 
 module.exports = config

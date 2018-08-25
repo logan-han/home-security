@@ -10,9 +10,9 @@ var config = {
   email_from_address: "blah",
   image_prefix: "https://s3-ap-southeast-2.amazonaws.com/bucket/",
   notification_prefix: "Movement detected ",
-  send_sms: "true",
-  send_email: "true",
-  debug: "true"
+  send_sms: true,
+  send_email: true,
+  debug: true
 };
 
 module.exports = config

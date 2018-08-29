@@ -53,3 +53,6 @@ Invoke Lambda function <ses-mail-parser> as Event
    ]
 }
 ```
+
+### cognito integration
+Create a user pool and app client. Then `OAuth 2.0` set to `Implicit grant`

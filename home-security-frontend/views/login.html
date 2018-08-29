@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+</head>
+<body>
+<script>
+    if (window.location.hash) {
+        var hash = window.location.hash.substring(1);
+        var result = {};
+        hash.split("&").forEach(function (part) {
+            var item = part.split("=");
+            result[item[0]] = item[1];
+        });
+        document.cookie = "id_token=" + result['id_token'] + "; expires=" + result['expires'] + "; path=/";
+        document.cookie = "access_token=" + result['access_token'] + "; expires=" + result['expires'] + "; path=/";
+        window.location.href = "./";
+    } else {
+        window.location.href = "https://<%= config.cognitoDomain %>.auth.<%= config.cognitoRegion %>.amazoncognito.com/login?response_type=token&client_id=<%= config.cognitoClientId %>&redirect_uri=<%= config.cognitoLoginUrl %>";
+    }
+</script>
+</body>
+</html>

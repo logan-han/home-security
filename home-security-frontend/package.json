@@ -13,6 +13,8 @@
     "array-sort": "^1.0.0",
     "aws-sdk": "^2.288.0",
     "aws-serverless-express": "^3.2.0",
+    "cognito-express": "^2.0.12",
+    "cookie-parser": "^1.4.3",
     "date-time": "^2.1.0",
     "ejs": "^2.6.1",
     "express": "^4.16.3"

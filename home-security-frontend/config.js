@@ -7,7 +7,7 @@ var config = {
   cognitoClientId: "3d85g8tnh1nh8trf5pqgqcmg91",
   cognitoLoginUrl: "https://security.han.life/login",
   daystoScan: 30,
-  utcOffset: 10,
+  timeZone: "Australia/Melbourne",
   debug: true
 };
 

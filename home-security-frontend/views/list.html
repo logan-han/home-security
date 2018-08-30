@@ -1,10 +1,25 @@
 <html>
 <head>
 <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <title>Home Security - List</title>
 </head>
 <body>
-<div><a class="pure-button" href="./logout">LOGOUT</a></div>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<div>
+<input class=flatpickr type="text" placeholder="Select Date to Search">
+<script>
+  var dateSelected = "<% if(typeof date !== 'undefined' && date) { %> <%= date %> <% } %>";
+  flatpickr(".flatpickr", {
+          <% if(typeof date !== 'undefined' && date) { %> defaultDate : "<%= date %>", <% } %>
+          onChange: function(selectedDates, dateStr, instance) {
+                  window.location = "/by-date/" + dateStr;
+          },
+  });
+</script>
+<a class="pure-button" href="./logout">LOGOUT</a>
+</div>
+
 <table class="pure-table pure-table-bordered">
     <thead>
         <th>Thumbnail</th>
@@ -16,8 +31,8 @@
     <% for(var i = 0; i < items.length; i++) { %>
   <tr>
             <td><a class="pure-button" href=by-filename/<%= items[i].filename %>><img class="pure-img" src=<%= config.imagehost+items[i].filename %> width="100" height="100"></a></td>
-            <td><%= moment(items[i].timestamp).utcOffset(config.utcOffset).format('LLLL') %></td>
-            <td><% if(items[i].faceId) { %> <a class="pure-button" href=latest/by-faceId/<%= items[i].faceId %>><%= items[i].faceId %></a> <% } %></td>
+            <td><%= moment.tz(items[i].timestamp, config.timeZone).format('LLLL') %></td>
+            <td><% if(items[i].faceId) { %> <a class="pure-button" href=by-faceId/<%= items[i].faceId %>><%= items[i].faceId %></a> <% } %></td>
   </tr>
          <% } %>
       </tbody>

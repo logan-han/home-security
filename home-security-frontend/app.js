@@ -36,8 +36,16 @@ app.use(function(req, res, next) {
 
 
 app.get('/', (req, res) => {
+  var scanRange = moment().subtract(config.daystoScan, 'days').valueOf();
   var params = {
-    TableName: config.tableName
+    TableName: config.tableName,
+    FilterExpression: "#ts > :scanRange",
+    ExpressionAttributeNames:{
+      "#ts" : "timestamp"
+    },
+    ExpressionAttributeValues: {
+      ":scanRange": scanRange
+    }
   }
   dynamodb.scan(params, function(err, data) {
     if (err) console.log(err);

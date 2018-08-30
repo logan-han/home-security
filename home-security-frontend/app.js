@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const AWS = require('aws-sdk');
 const dynamodb = new AWS.DynamoDB.DocumentClient();
-var moment = require('moment');
+const moment = require('moment-timezone');
 const arraySort = require('array-sort');
 
 const cognitoExpress = new CognitoExpress({
@@ -50,6 +50,26 @@ app.get('/', (req, res) => {
   dynamodb.scan(params, function(err, data) {
     if (err) console.log(err);
     else res.render('list',{items : arraySort(data.Items, 'timestamp', {reverse: true}), moment : moment, config : config});
+  });
+});
+
+app.get('/by-date/:date', (req, res) => {
+  var tsTo = moment(req.params.date).add(1, 'days').valueOf();
+  var tsFrom = moment(req.params.date).valueOf();
+  var params = {
+    TableName: config.tableName,
+    FilterExpression: "#ts > :tsFrom AND #ts < :tsTo",
+    ExpressionAttributeNames:{
+      "#ts" : "timestamp"
+    },
+    ExpressionAttributeValues: {
+      ":tsFrom": tsFrom,
+      ":tsTo": tsTo
+    }
+  }
+  dynamodb.scan(params, function(err, data) {
+    if (err) console.log(err);
+    else res.render('list',{items : arraySort(data.Items, 'timestamp', {reverse: true}), date : req.params.date, moment : moment, config : config});
   });
 });
 

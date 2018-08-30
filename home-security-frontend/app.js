@@ -1,12 +1,12 @@
+const config = require("./config.js");
 const express = require('express');
 const CognitoExpress = require("cognito-express");
 const cookieParser = require('cookie-parser');
 const app = express();
 const AWS = require('aws-sdk');
 const dynamodb = new AWS.DynamoDB.DocumentClient();
-const dateTime = require('date-time');
+var moment = require('moment');
 const arraySort = require('array-sort');
-const config = require("./config.js");
 
 const cognitoExpress = new CognitoExpress({
     region: config.cognitoRegion,
@@ -41,7 +41,7 @@ app.get('/', (req, res) => {
   }
   dynamodb.scan(params, function(err, data) {
     if (err) console.log(err);
-    else res.render('list',{items : arraySort(data.Items, 'timestamp', {reverse: true}), dateTime : dateTime, config : config});
+    else res.render('list',{items : arraySort(data.Items, 'timestamp', {reverse: true}), moment : moment, config : config});
   });
 });
 
@@ -55,7 +55,7 @@ app.get('/by-filename/:filename', (req, res) => {
   }
   dynamodb.scan(params, function(err, data) {
     if (err) console.log(err);
-    else res.render('detail',{items : data.Items, dateTime : dateTime, config : config});
+    else res.render('detail',{items : data.Items, moment : moment, config : config});
   });
 });
 
@@ -69,7 +69,7 @@ app.get('/by-faceId/:faceId', (req, res) => {
   }
   dynamodb.scan(params, function(err, data) {
     if (err) console.log(err);
-    else res.render('detail',{items : arraySort(data.Items, 'timestamp', {reverse: true}), dateTime : dateTime, config : config});
+    else res.render('detail',{items : arraySort(data.Items, 'timestamp', {reverse: true}), moment : moment, config : config});
   });
 });
 

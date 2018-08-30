@@ -12,6 +12,7 @@ var config = {
   notification_prefix: "Movement detected ",
   send_sms: true,
   send_email: true,
+  MinConfidence: 80,
   debug: true
 };
 

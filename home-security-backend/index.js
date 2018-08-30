@@ -87,7 +87,7 @@ function rekognizeLabels(bucket, key) {
       }
     },
     MaxLabels: 1,
-    MinConfidence: 70
+    MinConfidence: config.MinConfidence
   };
 
   return rekognition.detectLabels(params).promise()

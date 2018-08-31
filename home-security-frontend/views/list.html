@@ -30,9 +30,9 @@
   <tbody>
     <% for(var i = 0; i < items.length; i++) { %>
   <tr>
-            <td><a class="pure-button" href=by-filename/<%= items[i].filename %>><img class="pure-img" src=<%= config.imagehost+items[i].filename %> width="100" height="100"></a></td>
+            <td><a class="pure-button" href=/by-filename/<%= items[i].filename %>><img class="pure-img" src=<%= config.imagehost+items[i].filename %> width="100" height="100"></a></td>
             <td><%= moment.tz(items[i].timestamp, config.timeZone).format('LLLL') %></td>
-            <td><% if(items[i].faceId) { %> <a class="pure-button" href=by-faceId/<%= items[i].faceId %>><%= items[i].faceId %></a> <% } %></td>
+            <td><% if(items[i].faceId) { %> <a class="pure-button" href=/by-faceId/<%= items[i].faceId %>><%= items[i].faceId %></a> <% } %></td>
   </tr>
          <% } %>
       </tbody>

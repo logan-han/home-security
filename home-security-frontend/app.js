@@ -54,8 +54,8 @@ app.get('/', (req, res) => {
 });
 
 app.get('/by-date/:date', (req, res) => {
-  var tsTo = moment(req.params.date).add(1, 'days').valueOf();
-  var tsFrom = moment(req.params.date).valueOf();
+  var tsTo = moment.tz(req.params.date,config.timeZone).add(1, 'days').valueOf();
+  var tsFrom = moment.tz(req.params.date,config.timeZone).valueOf();
   var params = {
     TableName: config.tableName,
     FilterExpression: "#ts > :tsFrom AND #ts < :tsTo",

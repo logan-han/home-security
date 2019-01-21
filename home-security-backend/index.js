@@ -18,7 +18,7 @@ exports.handler = function(event, context, callback) {
       {
         labelData = data["Labels"];
         if (config.debug) console.log(key + " = " + labelData[0]["Name"]);
-        if(labelData[0]["Name"]=="Human") return rekognizeFace(bucket, key).then(function(faceData) {
+        if(labelData[0]["Name"]=="Human" || labelData[0]["Name"]=="Person") return rekognizeFace(bucket, key).then(function(faceData) {
           if(faceData["FaceRecords"][0])
           {
             face = faceData["FaceRecords"][0]["Face"];

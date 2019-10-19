@@ -11,12 +11,12 @@
   "license": "ISC",
   "dependencies": {
     "array-sort": "^1.0.0",
-    "aws-sdk": "^2.288.0",
-    "aws-serverless-express": "^3.2.0",
-    "cognito-express": "^2.0.12",
-    "cookie-parser": "^1.4.3",
-    "ejs": "^2.6.1",
-    "express": "^4.16.3",
-    "moment-timezone": "^0.5.21"
+    "aws-sdk": "^2.553.0",
+    "aws-serverless-express": "^3.3.6",
+    "cognito-express": "^2.0.16",
+    "cookie-parser": "^1.4.4",
+    "ejs": "^2.7.1",
+    "express": "^4.17.1",
+    "moment-timezone": "^0.5.27"
   }
 }

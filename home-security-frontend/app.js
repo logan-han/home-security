@@ -48,8 +48,8 @@ app.get('/', (req, res) => {
     }
   }
   dynamodb.scan(params, function(err, data) {
-    if (err) console.log(err);
-    else res.render('list',{items : arraySort(data.Items, 'timestamp', {reverse: true}), moment : moment, config : config});
+    if (err) return res.status(500).send(err);
+    else return res.render('list',{items : arraySort(data.Items, 'timestamp', {reverse: true}), moment : moment, config : config});
   });
 });
 
@@ -68,8 +68,8 @@ app.get('/by-date/:date', (req, res) => {
     }
   }
   dynamodb.scan(params, function(err, data) {
-    if (err) console.log(err);
-    else res.render('list',{items : arraySort(data.Items, 'timestamp', {reverse: true}), date : req.params.date, moment : moment, config : config});
+    if (err) return res.status(500).send(err);
+    else return res.render('list',{items : arraySort(data.Items, 'timestamp', {reverse: true}), date : req.params.date, moment : moment, config : config});
   });
 });
 
@@ -82,8 +82,8 @@ app.get('/by-filename/:filename', (req, res) => {
     }
   }
   dynamodb.scan(params, function(err, data) {
-    if (err) console.log(err);
-    else res.render('detail',{items : data.Items, moment : moment, config : config});
+    if (err) return res.status(500).send(err);
+    else return res.render('detail',{items : data.Items, moment : moment, config : config});
   });
 });
 
@@ -96,15 +96,15 @@ app.get('/by-faceId/:faceId', (req, res) => {
     }
   }
   dynamodb.scan(params, function(err, data) {
-    if (err) console.log(err);
-    else res.render('detail',{items : arraySort(data.Items, 'timestamp', {reverse: true}), moment : moment, config : config});
+    if (err) return res.status(500).send(err);
+    else return res.render('detail',{items : arraySort(data.Items, 'timestamp', {reverse: true}), moment : moment, config : config});
   });
 });
 
 app.get('/logout', function (req, res, next) {
   res.cookie("id_token", "", {expires: new Date(0), path: '/'});
   res.cookie("access_token", "", {expires: new Date(0), path: '/'});
-  res.render('logout',{config : config});
+  return res.render('logout',{config : config});
 });
 
 module.exports = app

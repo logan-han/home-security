@@ -25,4 +25,4 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: cd home-security-backend && npm install
-    - run: cd .. && cd home-security-frontend && install
+    - run: cd home-security-frontend && npm install

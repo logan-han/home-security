@@ -23,7 +23,10 @@ jobs:
    
     - name: build frontend
       run : cd home-security-frontend && npm install
-  
+
+    - name: build backend
+      run : cd home-security-backend && npm install
+      
     - name: build ses-mail-parser
       run : cd ses-mail-parser && npm install
 
@@ -34,8 +37,11 @@ jobs:
         aws-secret-access-key :  ${{ secrets.AWS_SECRET_KEY }}
         aws-region            :  ${{ env.AWS_DEFAULT_REGION }}  
         
-    - name: Install Claudia
-      run : npm install claudia -g
+    - name: Install Dependencies
+      run : npm install claudia babel-cli -g
     
     - name: Deploy Frontend
       run : cd home-security-frontend && claudia update
+
+    - name: Deploy ses-mail-parser
+      run : cd ses-mail-parser && claudia update --region us-west-2

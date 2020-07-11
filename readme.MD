@@ -5,7 +5,7 @@ Designed to capture email notification from Synology surveillance station and se
 
 It also has MVP frontend web interface to display historic record.
 
-Not quite in distributable status btw.
+Thanks to GitHub Actions, now supports (partial) auto build and deploy. 
 
 # Deployment HOWTO
 

@@ -20,7 +20,10 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '12'
-   
+
+    - name: Install Dependencies
+      run : npm install claudia babel-cli -g
+      
     - name: build frontend
       run : cd home-security-frontend && npm install
 
@@ -36,9 +39,6 @@ jobs:
         aws-access-key-id     :  ${{ secrets.AWS_ACCESS_KEY }}
         aws-secret-access-key :  ${{ secrets.AWS_SECRET_KEY }}
         aws-region            :  ${{ env.AWS_DEFAULT_REGION }}  
-        
-    - name: Install Dependencies
-      run : npm install claudia babel-cli -g
     
     - name: Deploy Frontend
       run : cd home-security-frontend && claudia update

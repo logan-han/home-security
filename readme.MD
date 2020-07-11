@@ -5,12 +5,13 @@ Designed to capture email notification from Synology surveillance station and se
 
 It also has MVP frontend web interface to display historic record.
 
-Thanks to GitHub Actions, now supports (partial) auto build and deploy. 
+Thanks to GitHub Actions, now supports auto build and deploy. 
 
-# Deployment HOWTO
+# Initial Deployment HOWTO
 
 ## backend
 `claudia create --region ap-southeast-2 --handler index.handler --policies policy`
+
 Need S3 PUT action trigger as well
 ## ses-mail-parser
 `claudia create --region us-west-2 --handler index.handler --policies policy`

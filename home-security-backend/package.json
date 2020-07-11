@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "Telstra_Messaging": "github:Telstra/MessagingAPI-SDK-node",
+    "Telstra_Messaging": "git://github.com/Telstra/MessagingAPI-SDK-node.git#fc9ce3f9b2f9eb26d54321e1e5a9f16dbb2b729b",
     "aws-sdk": "^2.289.0"
   }
 }

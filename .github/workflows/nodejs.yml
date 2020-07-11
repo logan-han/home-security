@@ -22,7 +22,7 @@ jobs:
         node-version: '12'
 
     - name: Install Dependencies
-      run : npm install claudia @babel/core @babel/cli @babel/plugin-syntax-dynamic-import -g
+      run : npm install claudia -g
       
     - name: build frontend
       run : cd home-security-frontend && npm install

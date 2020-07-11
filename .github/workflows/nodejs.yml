@@ -35,4 +35,5 @@ jobs:
         aws-region            :  ${{ env.AWS_DEFAULT_REGION }}  
         
     - name: Deploy Frontend
-      run : cd home-security-frontend && claudia update
+    - run : npm install claudia -g
+    - run : cd home-security-frontend && claudia update

@@ -1,11 +1,10 @@
+![Build and Deploy](https://github.com/logan-han/home-security/workflows/Build%20and%20Deploy/badge.svg)
 # Machine Learning Home Security
 It's a small project runs surveillance camera image analysis using AWS Rekognition that I wrote for company preso.
 
 Designed to capture email notification from Synology surveillance station and send SMS notification when human movement detected.
 
 It also has MVP frontend web interface to display historic record.
-
-Thanks to GitHub Actions, now supports auto build and deploy. 
 
 # Initial Deployment HOWTO
 

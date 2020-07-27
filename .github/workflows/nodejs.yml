@@ -33,11 +33,11 @@ jobs:
         EMAIL_FROM_ADDRESS: ${{ secrets.EMAIL_FROM_ADDRESS }}
       run : |
         cd home-security-backend
-        sed -i 's/TELSTRA_CLIENT_ID/$env:TELSTRA_CLIENT_ID/g' config.js > config.js
-        sed -i 's/TELSTRA_SECRET/$env:TELSTRA_SECRET/g' config.js > config.js
-        sed -i 's/SMS_TO_PHONE/$env:SMS_TO_PHONE/g' config.js > config.js
-        sed -i 's/EMAIL_TO_ADDRESS/$env:EMAIL_TO_ADDRESS/g' config.js > config.js
-        sed -i 's/EMAIL_FROM_ADDRESS/$env:EMAIL_FROM_ADDRESS/g' config.js > config.js
+        sed -i "s/TELSTRA_CLIENT_ID/$env:TELSTRA_CLIENT_ID/g" config.js
+        sed -i "s/TELSTRA_SECRET/$env:TELSTRA_SECRET/g" config.js
+        sed -i "s/SMS_TO_PHONE/$env:SMS_TO_PHONE/g" config.js
+        sed -i "s/EMAIL_TO_ADDRESS/$env:EMAIL_TO_ADDRESS/g" config.js
+        sed -i "s/EMAIL_FROM_ADDRESS/$env:EMAIL_FROM_ADDRESS/g" config.js
         npm install
         cd ..
       

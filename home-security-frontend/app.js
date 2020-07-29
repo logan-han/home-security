@@ -22,13 +22,9 @@ app.set('view engine', 'html');
 
 app.use(function(req, res, next) {
   let accessTokenFromClient = req.cookies.id_token;
-  if (!accessTokenFromClient) res.render("login",{config : config});
+  if (!accessTokenFromClient && !req.path.startsWith('/login')) return res.redirect('/login');
   cognitoExpress.validate(accessTokenFromClient, function(err, response) {
-    if (err) {
-      res.cookie("id_token", "", {expires: new Date(0), path: '/'});
-      res.cookie("access_token", "", {expires: new Date(0), path: '/'});
-      return res.status(401).send(err);
-    }
+    if (err && !req.path.startsWith('/login')) return res.redirect('/login');
     res.locals.user = response;
     next();
   });
@@ -101,10 +97,18 @@ app.get('/by-faceId/:faceId', (req, res) => {
   });
 });
 
+app.get('/login', function (req, res, next) {
+  res.render("login", {config: config}, function (err,html) {
+      return res.send(html);
+    });
+});
+
 app.get('/logout', function (req, res, next) {
   res.cookie("id_token", "", {expires: new Date(0), path: '/'});
   res.cookie("access_token", "", {expires: new Date(0), path: '/'});
-  return res.render('logout',{config : config});
+  res.render("logout", {config: config}, function (err,html) {
+    return res.send(html);
+  });
 });
 
 module.exports = app

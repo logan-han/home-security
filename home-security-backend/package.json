@@ -11,6 +11,6 @@
   "license": "ISC",
   "dependencies": {
     "Telstra_Messaging": "git://github.com/Telstra/MessagingAPI-SDK-node.git#ac453e3cafe4bf1eb282f2d4d2370ecfdb76b020",
-    "aws-sdk": "^2.289.0"
+    "aws-sdk": "^2.814.0"
   }
 }

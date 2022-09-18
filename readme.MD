@@ -1,4 +1,7 @@
-![Build and Deploy](https://github.com/logan-han/home-security/workflows/Build%20and%20Deploy/badge.svg)
+# Deprecated
+Now there are number of commercial products doing this so I've also switched to one of them.  :) 
+
+
 # Machine Learning Home Security
 It's a small project runs surveillance camera image analysis using AWS Rekognition that I wrote for company preso.
 
